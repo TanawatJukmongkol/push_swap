@@ -6,28 +6,41 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:28:25 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:50:14 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:59:44 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void	radix(t_stack *sa, t_stack *sb)
+void	radix(t_stack *sa, t_stack *sb, size_t *d)
 {
 	size_t	indx;
 	size_t	digit;
 
 	indx = 0;
-	digit = 0;
+	digit = *d;
 	while (indx < sa->length)
 	{
-		if ((*get_stack(sa, indx) >> digit) & 1)
-			exe_pb(sa, sb);
+		if (digit % 2 == 0)
+		{
+			if ((*get_stack(sa, 0) << digit) & 1)
+				exe_pb(sa, sb);
+			else
+				exe_ra(sa);
+			indx++;
+		}
 		else
-			exe_ra(sa);
-		indx++;
+		{
+			if ((*get_stack(sb, 0) << digit) & 1)
+				exe_pa(sa, sb);
+			else
+				exe_rb(sa);
+			indx++;
+		}
 	}
+	digit++;
+	*d = digit;
 }
 
 int	main(int argc, char **argv)
@@ -45,7 +58,13 @@ int	main(int argc, char **argv)
 		push_stack(&stack1, ft_atoi(argv[i]));
 	}
 
-	radix(&stack1, &stack2);
+	size_t	dig = 0;
+	radix(&stack1, &stack2, &dig);
+	radix(&stack1, &stack2, &dig);
+	radix(&stack1, &stack2, &dig);
+	radix(&stack1, &stack2, &dig);
+	radix(&stack1, &stack2, &dig);
+	radix(&stack1, &stack2, &dig);
 
 	for (int i = 0; i < stack1.max_size; i++)
 	{

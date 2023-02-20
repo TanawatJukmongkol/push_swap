@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 19:44:41 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:19:46 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:52:30 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,4 @@ void	exe_rrb(t_stack *s)
 	if (!tmp)
 		return ;
 	unshift_stack(s, *tmp);
-}
-
-void	exe_rrr(t_stack *sa, t_stack *sb)
-{
-	exe_rra(sa);
-	exe_rrb(sb);
 }

@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:52:24 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:08:17 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:53:00 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,12 @@ int	*get_stack(t_stack *s, size_t indx)
 void	set_stack(t_stack *s, size_t indx, int value)
 {
 	s->data[(s->offset + indx) % s->max_size] = &value;
+}
+
+// Added rrr here, because not enough space.
+
+void	exe_rrr(t_stack *sa, t_stack *sb)
+{
+	exe_rra(sa);
+	exe_rrb(sb);
 }
