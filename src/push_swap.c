@@ -6,12 +6,29 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:28:25 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:01:37 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:50:14 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
+
+void	radix(t_stack *sa, t_stack *sb)
+{
+	size_t	indx;
+	size_t	digit;
+
+	indx = 0;
+	digit = 0;
+	while (indx < sa->length)
+	{
+		if ((*get_stack(sa, indx) >> digit) & 1)
+			exe_pb(sa, sb);
+		else
+			exe_ra(sa);
+		indx++;
+	}
+}
 
 int	main(int argc, char **argv)
 {
@@ -27,6 +44,8 @@ int	main(int argc, char **argv)
 	for (int i = 1; i < argc; i++) {
 		push_stack(&stack1, ft_atoi(argv[i]));
 	}
+
+	radix(&stack1, &stack2);
 
 	for (int i = 0; i < stack1.max_size; i++)
 	{

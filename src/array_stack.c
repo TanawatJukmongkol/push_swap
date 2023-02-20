@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:44:04 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:04:00 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/20 23:31:27 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	*shift_stack(t_stack *s)
 	free(s->data[s->offset % s->max_size]);
 	s->data[s->offset % s->max_size] = NULL;
 	s->offset++;
-	if (s->offset > s->max_size)
+	if (s->offset > s->max_size - 1)
 		s->offset = 0;
 	s->length--;
 	return (&tmp);
