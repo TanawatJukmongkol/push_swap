@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:44:04 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:31:27 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/22 01:11:03 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ void	free_stack(t_stack *s)
 	size_t	indx;
 
 	indx = 0;
-	while (indx < s->max_size)
-		if (s->data[indx])
-			free(s->data[indx]);
+	// while (indx < s->max_size)
+	// 	if (s->data + indx != NULL)
+	// 		free(s->data[indx]);
+	free(s->data);
 }
 
 t_stack	*init_stack(t_stack *s, size_t max_size)

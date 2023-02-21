@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:53:36 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 21:38:59 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/21 17:31:14 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_stack
 }				t_stack;
 
 // Stack implementation
+void	free_stack(t_stack *s);
 t_stack	*init_stack(t_stack *s, size_t max_size);
 int		*push_stack(t_stack *s, int value);
 int		*unshift_stack(t_stack *s, int value);

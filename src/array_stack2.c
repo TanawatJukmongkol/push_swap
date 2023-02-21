@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/20 14:52:24 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/20 23:53:00 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/21 22:26:03 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	*pop_stack(t_stack *s)
 
 	if (s->length == 0)
 		return (NULL);
-	free(s->data[(s->offset + s->length - 1) % s->max_size]);
 	tmp = *s->data[(s->offset + s->length - 1) % s->max_size];
+	free(s->data[(s->offset + s->length - 1) % s->max_size]);
 	s->data[(s->offset + s->length - 1) % s->max_size] = NULL;
 	s->length--;
 	return (&tmp);
@@ -27,6 +27,8 @@ int	*pop_stack(t_stack *s)
 
 int	*get_stack(t_stack *s, size_t indx)
 {
+	if (!s->data[(s->offset + indx) % s->max_size])
+		return (NULL);
 	return (s->data[(s->offset + indx) % s->max_size]);
 }
 
@@ -39,6 +41,15 @@ void	set_stack(t_stack *s, size_t indx, int value)
 
 void	exe_rrr(t_stack *sa, t_stack *sb)
 {
-	exe_rra(sa);
-	exe_rrb(sb);
+	int	*tmp;
+
+	tmp = pop_stack(sa);
+	if (!tmp)
+		return ;
+	unshift_stack(sa, *tmp);
+	tmp = pop_stack(sb);
+	if (!tmp)
+		return ;
+	unshift_stack(sb, *tmp);
+	write(1, "rrr\n", 4);
 }
