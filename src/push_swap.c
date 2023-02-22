@@ -6,7 +6,7 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:28:25 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/22 08:01:13 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/22 21:20:29 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,16 @@ int	*parse_input(int argc, char **argv, size_t *len)
 	if (!args)
 		return (0);
 	*len = indx;
-	while (indx--)
+	while (!error && indx--)
 	{
 		args[indx] = ft_atoi(args_arr[indx]);
+		/*if (!(args[indx] > 0 && (args[indx] + 1) < 0) ||
+			!(args[indx] < 0 && (args[indx] - 1) > 0))
+		{
+			write(2, "Error\n", 6);
+			error = 1;
+			break ;
+		}*/
 		free(args_arr[indx]);
 	}
 	free(args_arr);
