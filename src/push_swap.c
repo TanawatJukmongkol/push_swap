@@ -6,27 +6,48 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:28:25 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/22 04:01:39 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/02/22 08:01:13 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	valid(t_stack *s)
+size_t	smallest_index(t_stack *s)
+{
+	int		nbr;
+	size_t	indx;
+	size_t	n_indx;
+
+	n_indx = 0;
+	indx = 0;
+	nbr = *get_stack(s, 0);
+	while (indx < s->length)
+	{
+		if (nbr > *get_stack(s, indx))
+		{
+			n_indx = indx;
+			nbr = *get_stack(s, indx);
+		}
+		indx++;
+	}
+	return (n_indx);
+}
+
+int	valid(t_stack *s, size_t sindx)
 {
 	size_t	indx;
 	int		nbr;
 
 	indx = 0;
-	if (s->length != s->max_size || !get_stack(s, 0))
+	if (s->length != s->max_size)
 		return (0);
-	nbr = *get_stack(s, 0);
+	nbr = *get_stack(s, (sindx + indx) % s->length);
 	while (indx < s->length)
 	{
-		if (nbr > *get_stack(s, indx))
+		if (nbr > *get_stack(s, (sindx + indx) % s->length))
 			return (0);
-		nbr = *get_stack(s, indx);
+		nbr = *get_stack(s, (sindx + indx) % s->length);
 		indx++;
 	}
 	return (1);
@@ -93,20 +114,37 @@ int	*parse_input(int argc, char **argv, size_t *len)
 	args_raw = NULL;
 	while (indx < argc)
 	{
-		ft_recat(&args_raw, ft_strdup(argv[indx]));
-		ft_recat(&args_raw, ft_strdup(" "));
+		if(!ft_recat(&args_raw, ft_strdup(argv[indx])))
+			return (0);
+		if(!ft_recat(&args_raw, ft_strdup(" ")))
+			return (0);
 		indx++;
 	}
 	indx = 0;
-	if (!args_raw)
-	{
-		free(args_raw);
-		return (0);
-	}
 	args_arr = ft_split(args_raw, ' ');
 	free(args_raw);
 	if (!args_arr)
 		return (0);
+	int error = 0;
+	while (!error && args_arr[indx])
+	{
+		int	n = 0;
+		while (args_arr[indx][n])
+		{
+			if (n == 0 && (args_arr[indx][n] == '+'
+				|| args_arr[indx][n] == '-') && n++)
+				continue ;
+			if (!ft_isdigit(args_arr[indx][n]))
+			{
+				write(2, "Error\n", 6);
+				error = 1;
+				break ;
+			}
+			n++;
+		}
+		indx++;
+	}
+	indx = 0;
 	while (args_arr[indx])
 		indx++;
 	args = malloc(sizeof(int) * indx);
@@ -127,6 +165,7 @@ int	main(int argc, char **argv)
 	int		*args;
 	size_t	indx;
 	size_t	len;
+	size_t	small;
 	t_stack	stack1;
 	t_stack	stack2;
 
@@ -143,16 +182,19 @@ int	main(int argc, char **argv)
 	}
 	free(args);
 	indx = 0;
-	while (!valid(&stack1) && indx < sizeof(int) * 8)
+	small = smallest_index(&stack1);
+	while (!valid(&stack1, small) && indx < sizeof(int) * 8)
 	{
 		radix(&stack1, &stack2, indx);
 		while (stack2.length)
 			exe_pa(&stack1, &stack2);
 		indx++;
+		small = smallest_index(&stack1);
 	}
-	while (!valid(&stack1))
+	while (!valid(&stack1, 0))
 		exe_rra(&stack1);
 
+	// printf("\nsmallest indx: %lu (I.E. %d)\n", small, *get_stack(&stack1, small));
 	// for (int i = 0; i < stack1.max_size; i++)
 	// {
 	// 	int	*n = get_stack(&stack1, i);
