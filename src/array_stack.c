@@ -6,20 +6,25 @@
 /*   By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/19 21:44:04 by tjukmong          #+#    #+#             */
-/*   Updated: 2023/02/22 01:11:03 by tjukmong         ###   ########.fr       */
+/*   Updated: 2023/03/02 23:46:05 by tjukmong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	free_stack(t_stack *s)
 {
 	size_t	indx;
 
 	indx = 0;
-	// while (indx < s->max_size)
-	// 	if (s->data + indx != NULL)
-	// 		free(s->data[indx]);
+	while (indx < s->length)
+	{
+		if (!get_stack(s, indx))
+			continue ;
+		free(get_stack(s, indx));
+		indx++;
+	}
 	free(s->data);
 }
 

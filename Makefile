@@ -6,12 +6,13 @@
 #    By: tjukmong <tjukmong@student.42bangkok.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/19 06:32:57 by tjukmong          #+#    #+#              #
-#    Updated: 2023/02/20 19:46:58 by tjukmong         ###   ########.fr        #
+#    Updated: 2023/02/27 19:50:32 by tjukmong         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= push_swap
-SRCS		= push_swap.c array_stack.c array_stack2.c instruction.c instruction2.c
+SRCS		= push_swap.c parser.c array_stack.c array_stack2.c instruction.c instruction2.c\
+				radix_sort.c
 
 SRC_DIR		= ./src/
 LIB_DIR		= ./lib/
